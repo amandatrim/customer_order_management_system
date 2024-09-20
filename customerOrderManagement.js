@@ -15,3 +15,31 @@ let inventory = [
    the customer name, items ordered, and order status.
 */
 let orders = [];
+
+/* Task 3
+   In this task I created the placeOrderFunction
+   This function checks if products are in stock, if they are it adds a new order to the orders array 
+   If there isn't enough stock for any item, it prints out an error message and the order doesn't go through
+*/
+
+function placeOrder(customerName, orderedItems) {
+    let canPlaceOrder = orderedItems.every(item => {
+        let product = inventory.find(p => p.name === item.name);
+        return product && product.quantity >= item.quantity;
+    });
+    if (!canPlaceOrder) {
+        console.error('Not enough stock to place the order.');
+        return;
+    }
+    orderedItems.forEach(item => {
+        let product = inventory.find(p => p.name === item.name);
+        product.quantity -= item.quantity;
+    });
+    let newOrder = {
+        customerName: customerName,
+        items: orderedItems,
+        status: 'Pending'
+    };
+    orders.push(newOrder);
+    console.log('Order placed successfully');
+}
