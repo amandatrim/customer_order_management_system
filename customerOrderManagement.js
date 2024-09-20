@@ -51,9 +51,45 @@ function placeOrder(customerName, orderedItems) {
 */
 
 function calculateOrderTotal(order) {
+    // I made use of the reduce method to find the sum of each order price
     let totalPrice = order.items.reduce((sum, item) => {
         let product = inventory.find(p => p.name === item.name);
         return sum + (product.price * item.quantity);
     }, 0);
     return totalPrice;
+}
+
+/* Task 5 
+   In this task I created the completeOrderFunction
+   This function first finds an order using the customers name then marks the order as complete 
+
+*/
+
+function completeOrder(customerName) {
+    // Code to find an order using the users name
+    let order = orders.find(o => o.customerName === customerName);
+    if (!order) {
+        console.error('Order was not found.');
+        return;
+    }
+    // Changes the order status from pending to completed 
+    order.status = 'Completed';
+    console.log(`Order for ${customerName} is now completed.`);
+}
+
+/* Task 6 
+   In this task I created the checkPendingOrder function
+   This function logs out the details of all the orders that have the status of pending
+*/
+
+// Task 6: Create checkPendingOrders function
+// This function logs the details of all orders that are still pending
+function checkPendingOrders() {
+
+    // it uses a for each loop to iterate over each order in the order array to find which ones are still pending
+    orders.forEach(order => {
+        if (order.status === 'Pending') {
+            console.log(`Pending Order for ${order.customerName}:`, order);
+        }
+    });
 }
