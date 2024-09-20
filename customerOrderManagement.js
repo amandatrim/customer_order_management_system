@@ -43,3 +43,17 @@ function placeOrder(customerName, orderedItems) {
     orders.push(newOrder);
     console.log('Order placed successfully');
 }
+
+/* Task 4 
+   In this task I created the placeOrderFunction
+   This function calculates the total cost of what a customer ordered by adding up the price of each ordered product.
+
+*/
+
+function calculateOrderTotal(order) {
+    let totalPrice = order.items.reduce((sum, item) => {
+        let product = inventory.find(p => p.name === item.name);
+        return sum + (product.price * item.quantity);
+    }, 0);
+    return totalPrice;
+}
